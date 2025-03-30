@@ -2,7 +2,7 @@
 
 namespace App\DTOs;
 
-readonly class AuthDTO
+class AuthDTO extends BaseDTO
 {
     public function __construct(
         public string $email,

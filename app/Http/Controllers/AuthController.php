@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\DTOs\AuthDTO;
+use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
 use App\Services\Interfaces\AuthServiceInterface;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -15,14 +15,14 @@ class AuthController extends Controller
         protected AuthServiceInterface $authService
     ) {}
 
-    public function login(Request $request): JsonResponse
+    public function login(LoginUserRequest $request): JsonResponse
     {
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|string',
         ]);
 
-        $token = $this->authService->login(AuthDTO::fromRequest($request->only(['email', 'password'])));
+        $token = $this->authService->login(AuthDTO::fromRequest($request->validated()));
 
         return response()->json(['token' => $token], Response::HTTP_OK);
     }
@@ -55,8 +55,7 @@ class AuthController extends Controller
 
     public function me(): JsonResponse
     {
-        $user = $this->authService->me();
-        return response()->json(['user' => $user], Response::HTTP_OK);
+        return response()->json(['user' => $this->authService->me()], Response::HTTP_OK);
     }
 
 }

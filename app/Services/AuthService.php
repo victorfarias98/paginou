@@ -10,7 +10,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 
-class AuthService implements AuthServiceInterface
+readonly class AuthService implements AuthServiceInterface
 {
     public function __construct(
         protected AuthRepositoryInterface $authRepository
@@ -48,7 +48,7 @@ class AuthService implements AuthServiceInterface
         return $this->authRepository->createUser($data);
     }
 
-    public function me(): Authenticatable
+    public function me(): ?Authenticatable
     {
         return auth()->user();
     }
