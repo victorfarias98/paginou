@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DTOs\AuthDTO;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
+use App\Http\Resources\UserResource;
 use App\Services\Interfaces\AuthServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +34,7 @@ class AuthController extends Controller
             $user = $this->authService->register($request->validated());
             return response()->json([
                 'message' => 'Usuário registrado com sucesso!',
-                'user' => $user
+                'user' => new UserResource($user)
             ], Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return response()->json([
@@ -55,7 +56,6 @@ class AuthController extends Controller
 
     public function me(): JsonResponse
     {
-        return response()->json(['user' => $this->authService->me()], Response::HTTP_OK);
+        return response()->json(['user' => new UserResource($this->authService->me())], Response::HTTP_OK);
     }
-
 }

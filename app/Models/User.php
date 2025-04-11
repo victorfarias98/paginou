@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-
+use Illuminate\Database\Eloquent\Relations\HasOne;
 /**
  * @mixin IdeHelperUser
  */
@@ -19,6 +19,8 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'avatar',
+        'phone',
     ];
 
     /**
@@ -53,13 +55,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
-    public function spaces()
+    
+    public function pages()
     {
-        return $this->hasMany(Space::class);
-    }
-
-    public function reservations()
-    {
-        return $this->hasMany(Reservation::class);
+        return $this->hasMany(Page::class);
     }
 }

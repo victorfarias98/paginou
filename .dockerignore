@@ -1,0 +1,17 @@
+.git
+.gitignore
+node_modules
+vendor
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+.env
+docker-compose.yml
+Dockerfile
+.dockerignore
+README.md
+LICENSE
+*.log
+*.sqlite
+*.sqlite-journal 

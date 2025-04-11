@@ -20,9 +20,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => bcrypt('password'),
+            'avatar' => 'avatars/default.jpg',
+            'phone' => '(11) 99999-9999',
         ]);
-
-        Space::factory(50)->create();
-        Reservation::factory(100)->create();
     }
 }

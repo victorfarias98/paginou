@@ -45,6 +45,12 @@ readonly class AuthService implements AuthServiceInterface
 
     public function register(array $data): User
     {
+        if (isset($data['avatar'])) {
+            $avatar = $data['avatar'];
+            $path = $avatar->store('avatars', 'public');
+            $data['avatar'] = $path;
+        }
+
         return $this->authRepository->createUser($data);
     }
 
